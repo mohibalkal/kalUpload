@@ -68,6 +68,9 @@ CONTENT_VIEW_UNTIL_SIZE = { "text" : 5000000, "image" : 10000000, "image/svg" : 
 # Short URL minimal length
 SHORTURL_LENGTH = 4
 
+# Delete files after a number of downloads
+DOWNLOAD_LIMIT_PER_FILE = 0
+
 #########################################################################
 
 # Engine admin URL path
